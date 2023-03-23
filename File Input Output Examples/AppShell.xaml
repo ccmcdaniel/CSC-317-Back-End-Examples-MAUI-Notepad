@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="File_Input_Output_Examples.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:File_Input_Output_Examples"
+    Shell.FlyoutBehavior="Disabled">
+
+    <!--This defines the File menu that will be displayed at the top.-->
+    <Shell.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="New File.." Clicked="CreateNewFile"/>
+            <MenuFlyoutItem Text="Save File.." Clicked="SaveFile"/>
+            <MenuFlyoutItem Text="Save File As.." Clicked="SaveFileAs"/>
+            <MenuFlyoutItem Text="Open File.." Clicked="OpenFile"/>
+            <MenuFlyoutItem Text="Exit Program.." Clicked="ExitProgram"/>
+        </MenuBarItem>
+    </Shell.MenuBarItems>
+
+    <!--This opens the MainPage.xaml when the app starts-->
+    <ShellContent
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage"/>
+</Shell>

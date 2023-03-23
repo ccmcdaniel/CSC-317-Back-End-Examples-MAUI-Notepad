@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="File_Input_Output_Examples.TextFile"
+             Title="TextFile">
+    <VerticalStackLayout
+        Spacing="20"
+        Padding="20">
+        <ScrollView Orientation="Vertical" 
+                    VerticalOptions="FillAndExpand"
+                    MinimumHeightRequest="150"
+                    MaximumHeightRequest="300">
+            <StackLayout >
+                <Label x:Name="lblTextContents"
+                       BackgroundColor="White"
+                       TextColor="Black"
+                       MinimumWidthRequest="400"
+                       Padding="20"
+                       />
+            </StackLayout>
+        </ScrollView>
+
+        <Button Text="Back" Clicked="Back"/>
+    </VerticalStackLayout>
+</ContentPage>

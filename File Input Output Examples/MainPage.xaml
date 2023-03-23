@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="File_Input_Output_Examples.MainPage">
+
+
+    <!--The contents will be displayed in a Grid of 2 rows and 1 column.
+    The first row will display the file path of the current file being manipulated.
+    The second row will house the text editor field where the user can see the file
+    contents and make changes.
+    -->
+    <!--the File menu is defined in AppShell.xaml and AppShell.xaml.cs -->
+    <Grid RowDefinitions="40, *">
+
+        <HorizontalStackLayout Grid.Row="0"
+                               VerticalOptions="Center"
+                               Padding="15, 0, 0, 0"
+                               Spacing="10">
+            <Label Text="File Path: "/>
+            <Label x:Name="lblFileName"
+                   Text=""/>
+        </HorizontalStackLayout>
+        
+        <!--Housing the text editor in a ScrollView will allow the content to be
+            scrolled if it cannot fit onto one page.-->
+        <ScrollView Grid.Row="1" >
+            <!--An Editor box is essentially an entry box but allows us to
+            store multiple lines of text.-->
+            <Editor  x:Name="txtContents" 
+                       BackgroundColor="White" 
+                       Placeholder="..."
+                       TextColor="Black"
+                     VerticalOptions="FillAndExpand"
+                     AutoSize="TextChanges"/>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
