@@ -94,14 +94,21 @@ public partial class AppShell : Shell
 				StreamReader s = new StreamReader(openedFilePath);
 				target.FileContents = s.ReadToEnd();
 				s.Close();
+
+				await DisplayAlert("Success", "Your File has been successfully opened.", "OK");
 			}
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			//If something bad happens in the try above, then forget
 			//about it and move on!
 			target.FileOpenedPath = "";
 			target.FileContents = "";
+
+			string errormessage = "An Error Occurred while attempting to open the file.";
+			errormessage += "\n\nDetails: ";
+			errormessage += $"\n{ex.Message}";
+			await DisplayAlert("Error", errormessage, "OK");
 		}
 	}
 
@@ -109,17 +116,28 @@ public partial class AppShell : Shell
 	//If so, then just save directly to that file using StreamWriter.
 	//However, if it is not opened, then call SaveFileAs to open a
 	//Save File Dialog Box
-	private void SaveFile()
+	private async void SaveFile()
 	{
 		MainPage targetPage = (Current.CurrentPage as MainPage);
 
-		if(targetPage.FileOpenedPath != "")
+		if (targetPage.FileOpenedPath != "")
 		{
 			//Save to file already opened.
-			StreamWriter file = new StreamWriter(targetPage.FileOpenedPath, false);
-			file.Write(targetPage.FileContents);
-			file.Close();
-			return;
+
+			try
+			{
+				StreamWriter file = new StreamWriter(targetPage.FileOpenedPath, false);
+				file.Write(targetPage.FileContents);
+				file.Close();
+                await DisplayAlert("Success", "Your File has been successfully saved.", "OK");
+            }
+			catch (Exception ex)
+			{
+				string errormessage = "An Error Occurred while attempting to save the file.";
+				errormessage += "\n\nDetails: ";
+				errormessage += $"\n{ex.Message}";
+				await DisplayAlert("Error", errormessage, "OK");
+			}
 		}
 		else
 		{
@@ -149,7 +167,7 @@ public partial class AppShell : Shell
 			//Convert the File Contents into raw bytes to be used by File Saver
 			//and put it in the stream buffer.
 			using var stream = new MemoryStream(Encoding.Default.GetBytes(savedata));
-			
+
 			//Open the FileSaver dialog box, defauting the name of the saved file to
 			//"untitled.txt".   Additionally, pass the stream containing the file
 			//contents as well as the token to be saved.
@@ -160,15 +178,30 @@ public partial class AppShell : Shell
 			if (result.IsSuccessful)
 			{
 				targetPage.FileOpenedPath = result.FilePath;
+
+				await DisplayAlert("Success", "Your File has been successfully saved.", "OK");
 			}
+
+			else
+			{
+                string errormessage = "An Error Occurred while attempting to save the file.";
+                errormessage += "\n\nDetails: ";
+                errormessage += $"\n{result.Exception.Message}";
+                await DisplayAlert("Error", errormessage, "OK");
+            }
 		}
-		catch (Exception)
+		catch (Exception ex)
 		{
 			//If something bad happens in the try above, then forget
 			//about it and move on!
 			targetPage.FileOpenedPath = "";
 			targetPage.FileContents = "";
-		}
+
+            string errormessage = "An Error Occurred while attempting to open the file.";
+            errormessage += "\n\nDetails: ";
+            errormessage += $"\n{ex.Message}";
+            await DisplayAlert("Error", errormessage, "OK");
+        }
 	}
 
 }
